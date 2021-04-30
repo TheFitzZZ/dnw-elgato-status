@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPlugin", "TestPlugin\Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnw-status", "dnw-status\dnw-status.csproj", "{50A2ADBA-BA06-4D90-9460-0AFFB3DD3FA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTester", "ConsoleTester\ConsoleTester.csproj", "{33B167B4-2284-4EE4-B28E-5E07C1CBCFA6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{50A2ADBA-BA06-4D90-9460-0AFFB3DD3FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50A2ADBA-BA06-4D90-9460-0AFFB3DD3FA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50A2ADBA-BA06-4D90-9460-0AFFB3DD3FA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33B167B4-2284-4EE4-B28E-5E07C1CBCFA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33B167B4-2284-4EE4-B28E-5E07C1CBCFA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33B167B4-2284-4EE4-B28E-5E07C1CBCFA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33B167B4-2284-4EE4-B28E-5E07C1CBCFA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

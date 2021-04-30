@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -199,28 +200,30 @@ namespace TestPlugin
 
         }
 
-        static void GetPlayerCount()
+        static int GetPlayerCount(string type)
         {
-            //get the page
             var web = new HtmlWeb();
-            var document = web.Load("http://updates.digitalcombatsimulator.com");
+            var document = web.Load("https://www.dieneuewelt.de/status/");
             var page = document.DocumentNode;
 
             string html = page.InnerHtml.ToString().ToLower();
 
-            var a = html.IndexOf("stable version is");
-            html = html.Substring(a + 18);
-            string stable = html.Substring(0, html.IndexOf("</h2>")); //Latest stable version is
+            if (type == "allplayer")
+            {
+                var a = html.IndexOf("anzahl eingeloggter clients:</td>\r\n            <td class=\"data\">");
+                html = html.Substring(a + 64);
+                var astr = html.Substring(0, html.IndexOf("</td>\r\n          </tr>\r\n          <tr>\r\n                <td class=\"label\">peak eingeloggter")); //Latest stable version is
 
-            a = html.IndexOf("current openbeta is");
-            html = html.Substring(a + 20);
-            string beta = html.Substring(0, html.IndexOf("</h2>")); //<h2>Current openbeta is 2.5.0.13818.311</h2>
+                int playerOnline = Convert.ToInt32(astr);
 
-            //a = html.IndexOf("current openalpha is");
-            //html = html.Substring(a + 21);
-            //string alpha = html.Substring(0, html.IndexOf("</h2>"));  // <h2>Current openalpha is 2.2.0.12843.297</h2>
-
-
+                return playerOnline;
+            }
+            else if (type == "guild")
+            {
+                int guildOnline = Regex.Matches(html, Regex.Escape("[k]")).Count;
+                return guildOnline;
+            }
+            return 1337;
         }
 
     }
