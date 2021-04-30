@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using CommandLine.Text;
+using HtmlAgilityPack;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using streamdeck_client_csharp;
@@ -113,24 +114,24 @@ namespace TestPlugin
             {
                 switch (args.Event.Action)
                 {
-                    case "com.tyren.testplugin.pidemo":
-                        lock (settings)
-                        {
-                            settings[args.Event.Context] = args.Event.Payload.Settings;
-                            if (settings[args.Event.Context] == null)
-                            {
-                                settings[args.Event.Context] = new JObject();
-                            }
-                            if (settings[args.Event.Context]["selectedValue"] == null)
-                            {
-                                settings[args.Event.Context]["selectedValue"] = JValue.CreateString("20");
-                            }
-                            if (settings[args.Event.Context]["textDemoValue"] == null)
-                            {
-                                settings[args.Event.Context]["textDemoValue"] = JValue.CreateString("");
-                            }
-                        }
-                        break;
+                    //case "com.tyren.testplugin.pidemo":
+                    //    lock (settings)
+                    //    {
+                    //        settings[args.Event.Context] = args.Event.Payload.Settings;
+                    //        if (settings[args.Event.Context] == null)
+                    //        {
+                    //            settings[args.Event.Context] = new JObject();
+                    //        }
+                    //        if (settings[args.Event.Context]["selectedValue"] == null)
+                    //        {
+                    //            settings[args.Event.Context]["selectedValue"] = JValue.CreateString("20");
+                    //        }
+                    //        if (settings[args.Event.Context]["textDemoValue"] == null)
+                    //        {
+                    //            settings[args.Event.Context]["textDemoValue"] = JValue.CreateString("");
+                    //        }
+                    //    }
+                    //    break;
                 }
 
             };
@@ -195,6 +196,32 @@ namespace TestPlugin
                     }
                 }
             }
+
         }
+
+        static void GetPlayerCount()
+        {
+            //get the page
+            var web = new HtmlWeb();
+            var document = web.Load("http://updates.digitalcombatsimulator.com");
+            var page = document.DocumentNode;
+
+            string html = page.InnerHtml.ToString().ToLower();
+
+            var a = html.IndexOf("stable version is");
+            html = html.Substring(a + 18);
+            string stable = html.Substring(0, html.IndexOf("</h2>")); //Latest stable version is
+
+            a = html.IndexOf("current openbeta is");
+            html = html.Substring(a + 20);
+            string beta = html.Substring(0, html.IndexOf("</h2>")); //<h2>Current openbeta is 2.5.0.13818.311</h2>
+
+            //a = html.IndexOf("current openalpha is");
+            //html = html.Substring(a + 21);
+            //string alpha = html.Substring(0, html.IndexOf("</h2>"));  // <h2>Current openalpha is 2.2.0.12843.297</h2>
+
+
+        }
+
     }
 }

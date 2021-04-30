@@ -44,16 +44,16 @@
       "PropertyInspectorPath": "PropertyInspector/PIDemo/Index.html"
     }
   ],
-  "Author": "Shane DeSeranno",
-  "Description": "Used to test the StreamDeck C# SDK",
-  "Name": "C# Test Plugin",
+  "Author": "FitzZZ",
+  "Description": "Intended for use with the German Ultima Online server to display current player count",
+  "Name": "DNW Status",
   "Icon": "Images/pluginIcon",
-  "URL": "https://github.com/TyrenDe/streamdeck-client-csharp",
+  "URL": "https://github.com/TheFitzZZ/dnw-elgato-status",
   "Version": "0.1",
   "CodePath": "testplugin.exe",
-  "Category": "C# Test Plugin",
+  "Category": "FitzZZ",
   "CategoryIcon": "Images/categoryIcon",
-  "SDKVersion":  2,
+  "SDKVersion": 2,
   "Software": {
     "MinimumVersion": "4.1"
   },
