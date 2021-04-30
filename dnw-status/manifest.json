@@ -16,6 +16,34 @@
     },
     {
       "Icon": "Images/icon",
+      "Name": "DNW Player Counter",
+      "States": [
+        {
+          "Image": "Images/action1",
+          "TitleAlignment": "middle",
+          "FontSize": "17"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Zeigt die aktuelle Spielerzahl auf DNW",
+      "UUID": "com.tyren.dnw.playercounter"
+    },
+    {
+      "Icon": "Images/icon",
+      "Name": "DNW Guild Counter",
+      "States": [
+        {
+          "Image": "Images/action1",
+          "TitleAlignment": "middle",
+          "FontSize": "17"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Zeigt die aktuelle Anzahl spielender Gildenmitglieder auf DNW",
+      "UUID": "com.tyren.dnw.guildcounter"
+    },
+    {
+      "Icon": "Images/icon",
       "Name": "Test Plugin - Change Image",
       "States": [
         {

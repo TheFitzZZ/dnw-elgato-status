@@ -92,6 +92,10 @@ namespace TestPlugin
             Dictionary<string, int> counters = new Dictionary<string, int>();
             List<string> images = new List<string>();
             Dictionary<string, JObject> settings = new Dictionary<string, JObject>();
+            
+            string allplayers = "allplayer";
+            string guild = "guild";
+
             connection.OnWillAppear += (sender, args) =>
             {
                 switch (args.Event.Action)
@@ -101,11 +105,25 @@ namespace TestPlugin
                         {
                             counters[args.Event.Context] = 0;
                         }
-                        break;
+                        break; 
                     case "com.tyren.testplugin.changeimage":
                         lock (images)
                         {
                             images.Add(args.Event.Context);
+                        }
+                        break;
+                    case "com.tyren.dnw.playercounter":
+                        lock (images)
+                        {
+                            counters[args.Event.Context] = GetPlayerCount("allplayers");
+                            allplayers = args.Event.Context;
+                        }
+                        break;
+                    case "com.tyren.dnw.guildcounter":
+                        lock (images)
+                        {
+                            counters[args.Event.Context] = GetPlayerCount("guild");
+                            guild = args.Event.Context;
                         }
                         break;
                 }
@@ -174,15 +192,30 @@ namespace TestPlugin
             // Wait for up to 10 seconds to connect
             if (connectEvent.WaitOne(TimeSpan.FromSeconds(10)))
             {
-                // We connected, loop every second until we disconnect
-                while (!disconnectEvent.WaitOne(TimeSpan.FromMilliseconds(1000)))
+                // We connected, loop every xxxx until we disconnect
+                while (!disconnectEvent.WaitOne(TimeSpan.FromSeconds(2)))
                 {
                     lock (counters)
                     {
                         foreach (KeyValuePair<string, int> kvp in counters.ToArray())
                         {
-                            _ = connection.SetTitleAsync(kvp.Value.ToString(), kvp.Key, SDKTarget.HardwareAndSoftware, null);
-                            counters[kvp.Key]++;
+
+                            if (allplayers.Contains(kvp.Key))
+                            {
+                                counters[kvp.Key] = GetPlayerCount("allplayers");
+                                _ = connection.SetTitleAsync(kvp.Value.ToString(), kvp.Key, SDKTarget.HardwareAndSoftware, null);
+                            }
+                            else if (guild.Contains(kvp.Key))
+                            {
+                                counters[kvp.Key] = GetPlayerCount("guild");
+                                _ = connection.SetTitleAsync(kvp.Value.ToString(), kvp.Key, SDKTarget.HardwareAndSoftware, null);
+                            }
+                            else
+                            {
+                                _ = connection.SetTitleAsync(kvp.Value.ToString(), kvp.Key, SDKTarget.HardwareAndSoftware, null);
+                                counters[kvp.Key]++;
+                            }
+
                         }
                     }
 
@@ -208,7 +241,7 @@ namespace TestPlugin
 
             string html = page.InnerHtml.ToString().ToLower();
 
-            if (type == "allplayer")
+            if (type == "allplayers")
             {
                 var a = html.IndexOf("anzahl eingeloggter clients:</td>\r\n            <td class=\"data\">");
                 html = html.Substring(a + 64);
